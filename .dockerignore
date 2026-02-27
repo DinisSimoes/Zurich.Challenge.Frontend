@@ -1,0 +1,22 @@
+# Node
+node_modules
+npm-debug.log
+
+# Angular build
+dist
+.angular
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.editorconfig
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Misc
+README.md
