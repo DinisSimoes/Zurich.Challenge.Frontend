@@ -1,0 +1,304 @@
+
+:host {
+  --bg-dark: #0a0a0a;
+  --card-bg: #141414;
+  --border-color: #262626;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --accent-blue: #0ea5e9;
+  --accent-cyan: #22d3ee;
+  --accent-amber: #f59e0b;
+  --accent-green: #10b981;
+}
+
+.dashboard-wrapper {
+  background-color: var(--bg-dark);
+  min-height: 100vh;
+  padding: 2rem;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+
+  .title-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .logo-icon {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--accent-green);
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1.5rem;
+    }
+
+    h1 { font-size: 1.75rem; font-weight: 700; margin: 0; }
+    p { color: var(--text-secondary); margin: 0.2rem 0 0 0; }
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    .timestamp { color: var(--text-secondary); font-size: 0.85rem; }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+  }
+
+  &.blue::before { background: var(--accent-blue); }
+  &.cyan::before { background: var(--accent-cyan); }
+  &.amber::before { background: var(--accent-amber); }
+  &.green::before { background: var(--accent-green); }
+
+  label { color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
+  h2 { font-size: 1.8rem; margin: 0.5rem 0; font-weight: 700; }
+  .subtext { color: var(--text-secondary); font-size: 0.8rem; }
+
+  .stat-icon {
+    background: rgba(255,255,255,0.05);
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  
+  &.positive { background: rgba(16, 185, 129, 0.1); color: var(--accent-green); }
+  &.negative { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+}
+
+.charts-grid {
+  
+ 
+
+  ::ng-deep .p-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px !important;
+    color: white !important;
+
+    .p-card-title { font-size: 1.2rem; font-weight: 600; }
+    .p-card-subtitle { color: var(--text-secondary); }
+  }
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  animation: fadeIn 0.4s ease-out;
+
+  ::ng-deep .p-card {
+    max-width: 450px;
+    background: #1a1515 !important;
+    border: 1px solid #450a0a !important;
+    border-radius: 16px;
+    
+    .p-card-body {
+      padding: 2.5rem;
+    }
+  }
+
+  .error-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    i { 
+      font-size: 3.5rem; 
+      color: #f87171;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 0 15px rgba(248, 113, 113, 0.2));
+    }
+
+    h3 { 
+      font-size: 1.5rem; 
+      font-weight: 700;
+      color: #fca5a5;
+      margin-bottom: 0.75rem; 
+      letter-spacing: -0.01em;
+    }
+
+    p { 
+      color: #94a3b8;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    ::ng-deep .p-button.p-button-text {
+      color: #f87171 !important;
+      background: rgba(248, 113, 113, 0.05);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgba(248, 113, 113, 0.1) !important;
+        border-color: #f87171;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.loading-container {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  background-color: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(4px);
+  
+  z-index: 9999;
+  gap: 1.5rem;
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin: 0;
+    
+    animation: pulseText 2s infinite ease-in-out;
+  }
+}
+
+::ng-deep .p-progressspinner {
+  width: 60px;
+  height: 60px;
+  
+  .p-progressspinner-path {
+    stroke: var(--accent-green) !important;
+    animation: p-progressspinner-dash 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.stat-card.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-green);
+    background: #1a1a1a;
+  }
+
+  .view-link {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-green);
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &:hover .view-link {
+    opacity: 1;
+  }
+}
+
+::ng-deep .dark-dialog {
+  font-family: 'Inter', sans-serif !important;
+
+  .p-dialog-content, .p-dialog-header {
+    background-color: #141414 !important;
+    color: white !important;
+    border-color: #262626 !important;
+  }
+
+  .p-datatable {
+    .p-datatable-thead > tr > th {
+      background: #1a1a1a;
+      color: #94a3b8;
+      border-color: #262626;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    .p-datatable-tbody > tr {
+      background: #141414;
+      color: #e2e8f0;
+      border-color: #262626;
+      
+      &:hover {
+        background: #1a1a1a !important;
+      }
+    }
+  }
+
+  .id-cell {
+    font-family: monospace;
+    color: var(--accent-blue);
+    background: rgba(14, 165, 233, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+}
+
+.money-cell{
+  text-align: right;
+}

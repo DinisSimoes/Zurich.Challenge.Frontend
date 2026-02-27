@@ -1,0 +1,139 @@
+<div class="dashboard-wrapper">
+  <header class="main-header">
+    <div class="title-group">
+      <div class="logo-icon"><i class="pi pi-shield"></i></div>
+      <div>
+        <h1>Insurance Portfolio</h1>
+        <p>Análise consolidada de métricas e performance</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      @if (lastUpdated()) {
+        <span class="timestamp">Atualizado às {{ lastUpdated() }}</span>
+      }
+      <button
+        pButton
+        icon="pi pi-refresh"
+        label="Atualizar"
+        (click)="loadReport()"
+        [loading]="loading()"
+        class="p-button-outlined"
+      ></button>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <p-progressSpinner strokeWidth="4"></p-progressSpinner>
+      <p>Carregando dados estratégicos...</p>
+    </div>
+  } @else if (showError()) {
+    <div class="error-container">
+      <p-card>
+        <div class="error-content">
+          <i class="pi pi-exclamation-circle"></i>
+          <h3>Serviço Indisponível</h3>
+          <p>Não foi possível conectar ao servidor. Tente atualizar a página.</p>
+          <button
+            pButton
+            label="Tentar Novamente"
+            icon="pi pi-sync"
+            (click)="loadReport()"
+            class="p-button-text"
+          ></button>
+        </div>
+      </p-card>
+    </div>
+  } @else if (showResult()) {
+    <div class="stats-grid">
+      <div class="stat-card blue">
+        <div class="stat-content">
+          <label>Valor Médio Veículo</label>
+          <h2>{{ report()?.averageVehicleValue | currency: 'BRL' }}</h2>
+        </div>
+        <div class="stat-icon"><i class="pi pi-car"></i></div>
+      </div>
+      <div class="stat-card cyan">
+        <div class="stat-content">
+          <label>Prêmio de Risco</label>
+          <h2>{{ report()?.averageRiskPremium | currency: 'BRL' }}</h2>
+        </div>
+        <div class="stat-icon"><i class="pi pi-verified"></i></div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-content">
+          <label>Prêmio Comercial</label>
+          <h2>{{ report()?.averageCommercialPremium | currency: 'BRL' }}</h2>
+        </div>
+        <div class="stat-icon"><i class="pi pi-percentage"></i></div>
+      </div>
+      <div class="stat-card green clickable" (click)="viewAllInsurances()">
+        <div class="stat-content">
+          <label>Total de Apólices</label>
+          <h2>{{ report()?.totalPolicies }}</h2>
+          <span class="subtext">Registradas no sistema</span>
+          <div class="view-link">
+            <span>Ver detalhes</span>
+            <i class="pi pi-arrow-right"></i>
+          </div>
+        </div>
+        <div class="stat-icon"><i class="pi pi-file"></i></div>
+      </div>
+    </div>
+    <div class="charts-grid">
+      <p-card header="Comparação de Prêmios" subtitle="Análise comparativa entre risco e comercial">
+        @if (barData()) {
+          <p-chart type="bar" [data]="barData()" [options]="barOptions" height="300px"></p-chart>
+        }
+      </p-card>
+    </div>
+  }
+</div>
+
+<p-dialog
+  header="Listagem de Apólices"
+  [(visible)]="displayList"
+  (onShow)="onDialogShow()"
+  [modal]="true"
+  [style]="{ width: '70vw' }"
+  [breakpoints]="{ '960px': '95vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [contentStyle]="{ overflow: 'visible' }"
+  styleClass="dark-dialog"
+>
+  <p-table
+    #dt
+    [value]="insurances()"
+    [lazy]="true"
+    (onLazyLoad)="loadPage($event)"
+    [totalRecords]="totalRecords()"
+    [paginator]="true"
+    [rows]="5"
+    [loading]="loadingList()"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    styleClass="p-datatable-sm p-datatable-gridlines"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>CPF Segurado</th>
+        <th>Valor Veículo</th>
+        <th>Prêmio</th>
+        <th>Data Criação</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-ins>
+      <tr>
+        <td>
+          <span class="id-cell">{{ ins.id.substring(0, 8) }}...</span>
+        </td>
+        <td>{{ ins.insuredCpf }}</td>
+        <td class="money-cell">{{ ins.vehicleValue | currency: 'BRL' }}</td>
+        <td class="money-cell">{{ ins.premium | currency: 'BRL' }}</td>
+        <td>{{ ins.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
