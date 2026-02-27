@@ -1,4 +1,4 @@
-# Zurich Insurance Challenge – Frontend 🛡️
+# Zurich Insurance Challenge – Frontend
 
 Aplicação Web desenvolvida em Angular 21 responsável pela visualização e análise estatística das apólices de seguro calculadas pela API em .NET.
 
