@@ -40,7 +40,6 @@ Essa abordagem garante:
 ## 📊 Representação das Regras de Negócio
 
 A aplicação reflete visualmente os cálculos complexos realizados pelo motor do back-end, incluindo:
-* **Cálculo Dinâmico:** Visualização do Prêmio Comercial (Margem de Segurança 3% e Lucro 5%).
 * **Dashboard Analítico:** Médias aritméticas de valores de veículos e prêmios.
 * **Gestão de Dados:** Listagem paginada de seguros cadastrados com persistência em banco de dados relacional.
 
