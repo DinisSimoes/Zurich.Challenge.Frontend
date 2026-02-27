@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  background-color: #0a0a0a;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Resetando botões do PrimeNG para o estilo dark
+.p-button.p-button-outlined {
+  border-color: #262626 !important;
+  color: white !important;
+  background: transparent !important;
+  &:hover { background: rgba(255,255,255,0.05) !important; }
+}
